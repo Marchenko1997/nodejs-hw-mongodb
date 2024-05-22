@@ -36,7 +36,9 @@ export const setUpServer = () => {
   app.get('/contacts/:contactId', async (req, res) => {
     try {
       let { contactId } = req.params;
+
       contactId = contactId.trim(); 
+
 
       console.log(`Received request for contactId: ${contactId}`);
 
