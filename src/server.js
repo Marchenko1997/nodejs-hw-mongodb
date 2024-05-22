@@ -2,6 +2,7 @@ import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 import { env } from './utils/env.js';
 
 import { getAllContacts, getContactById } from './services/contacts.js';
@@ -34,7 +35,14 @@ export const setUpServer = () => {
 
   app.get('/contacts/:contactId', async (req, res) => {
     try {
-      const { contactId } = req.params;
+      let { contactId } = req.params;
+      contactId = contactId.trim();
+
+      console.log(`Received request for contactId: ${contactId}`);
+
+      if (!mongoose.Types.ObjectId.isValid(contactId)) {
+        return res.status(400).json({ message: `Invalid ObjectId: ${contactId}` });
+      }
       const contact = await getContactById(contactId);
       if (contact) {
         res.status(200).json({ data: contact, message: `Successfully found contact with id ${contactId}!` });
