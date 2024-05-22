@@ -11,7 +11,7 @@ export const initMongoConnection = async () => {
         await mongoose.connect(
           `mongodb+srv://${user}:${pwd}@${url}/${db}?retryWrites=true&w=majority`,
           {
-            sslValidate: false,
+            tlsAllowInvalidCertificates: true,
           }
         );
         console.log('Mongo connection successfully established!');
