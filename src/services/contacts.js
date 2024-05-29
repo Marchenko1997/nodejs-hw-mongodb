@@ -13,25 +13,20 @@ export const createContact = async(payload) => {
   return contact;
 };
 
-export const updateContact = async(contactId, payload, options ={}) => {
-  const rawResult = await Contacts.findByIdAndDelete(
-    { _id: contactId },
+export const updateContact = async(contactId, payload, options = {}) => {
+  const contact = await Contacts.findByIdAndUpdate(
+    contactId,
     payload,
     {
       new: true,
-      includeResultsMetaData: true,
       ...options,
     },
   );
 
-  if(!rawResult || !rawResult.value) return null;
-  return {
-    contact: rawResult.value,
-    isNew: Boolean(rawResult?.lastErrorObject?.upserted),
-  };
+  return contact;
 };
 
 export const deleteContact = async(contactId) => {
-  const contact = await Contacts.findByIdAndDelete({_id:contactId});
+  const contact = await Contacts.findByIdAndDelete(contactId);
   return contact;
 };
