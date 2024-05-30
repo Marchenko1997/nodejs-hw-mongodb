@@ -35,13 +35,28 @@ export const getContactByIdController = async (req, res, next) => {
   }
 };
 
-export const createContactController = async (req, res) => {
-const contact = await createContact(req.body);
-res.status(201).json ({
-  status: 201,
-  message: 'Successfully created contact!',
-  data: contact,
-});
+export const createContactController = async (req, res, next) => {
+  const { name, phoneNumber, contactType } = req.body;
+
+  if (!name || !phoneNumber || !contactType) {
+    const missingFields = [];
+    if (!name) missingFields.push('name');
+    if (!phoneNumber) missingFields.push('phoneNumber');
+    if (!contactType) missingFields.push('contactType');
+
+    return next(createHttpError(400, `Missing required fields: ${missingFields.join(', ')}`));
+  }
+
+  try {
+    const contact = await createContact(req.body);
+    res.status(201).json({
+      status: 201,
+      message: 'Successfully created a contact!',
+      data: contact,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const patchContactController = async(req, res, next) => {
@@ -55,7 +70,7 @@ export const patchContactController = async(req, res, next) => {
     res.json({
         status: 200,
         message: 'Successfully updated contact!',
-        data: result.contact,
+        data: result,
     });
 };
 
