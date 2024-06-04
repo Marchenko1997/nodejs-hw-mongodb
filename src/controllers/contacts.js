@@ -36,13 +36,12 @@ export const getContactByIdController = async (req, res, next) => {
 };
 
 export const createContactController = async (req, res, next) => {
-  const { name, phoneNumber, contactType } = req.body;
+  const { name, phoneNumber } = req.body;
 
-  if (!name || !phoneNumber || !contactType) {
+  if (!name || !phoneNumber) {
     const missingFields = [];
     if (!name) missingFields.push('name');
     if (!phoneNumber) missingFields.push('phoneNumber');
-
 
     return next(createHttpError(400, `Missing required fields: ${missingFields.join(', ')}`));
   }
