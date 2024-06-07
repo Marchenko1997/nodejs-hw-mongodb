@@ -1,16 +1,16 @@
 // src/utils/parseFilterParams.js
 
-const parseIsFavorite = (isFavorite) => {
-    if (isFavorite === 'true') return true;
-    if (isFavorite === 'false') return false;
+const parseIsFavourite = (isFavourite) => {
+    if (isFavourite === 'true') return true;
+    if (isFavourite === 'false') return false;
     return undefined;
   };
 
   export const parseFilterParams = (query) => {
-    const { isFavorite, type } = query;
-    const parsedIsFavorite = parseIsFavorite(isFavorite);
+    const { isFavourite, type } = query;
+    const parsedIsFavourite = parseIsFavourite(isFavourite);
     return {
-      isFavorite: parsedIsFavorite,
+      isFavourite: parsedIsFavourite,
       type,
     };
   };
