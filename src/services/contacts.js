@@ -8,8 +8,8 @@ export const getAllContacts = async ({ page = 1, perPage = 10, sortOrder = SORT_
 
   const contactsQuery = Contacts.find();
 
-  if (filter.isFavorite !== undefined) {
-    contactsQuery.where('isFavorite').equals(filter.isFavorite);
+  if (filter.isFavourite !== undefined) {
+    contactsQuery.where('isFavourite').equals(filter.isFavourite);
   }
 
   if (filter.type) {
