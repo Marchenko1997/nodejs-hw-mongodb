@@ -12,11 +12,10 @@ export const getAllContacts = async ({ page = 1, perPage = 10, sortOrder = SORT_
     contactsQuery.where('isFavourite').equals(filter.isFavourite);
   }
 
-  if (filter.type) {
-    contactsQuery.where('contactType').equals(filter.type);
+  if (filter.contactType) {
+
+    contactsQuery.where('contactType').equals(filter.contactType);
   }
-
-
 
   const [contactsCount, contacts] = await Promise.all([
     Contacts.find().merge(contactsQuery).countDocuments(),
@@ -34,6 +33,7 @@ export const getAllContacts = async ({ page = 1, perPage = 10, sortOrder = SORT_
     data: contacts,
   };
 };
+
 
 export const getContactById = async (contactId) => {
   return await Contacts.findById(contactId);
