@@ -16,4 +16,4 @@ export const SessionSchema = new Schema({
 
 });
 
-export const SessionCollection = model('session', SessionSchema);
+export const SessionsCollection = model('session', SessionSchema);
