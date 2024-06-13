@@ -3,7 +3,7 @@
 import { model, Schema } from 'mongoose';
 
 
-export const sessionSchema = new Schema({
+export const SessionSchema = new Schema({
     userId: {
         type: Schema.Types.ObjectId,
         ref: 'user',
@@ -16,4 +16,4 @@ export const sessionSchema = new Schema({
 
 });
 
-export const sessionCollection = model('session', sessionSchema);
+export const SessionCollection = model('session', SessionSchema);
