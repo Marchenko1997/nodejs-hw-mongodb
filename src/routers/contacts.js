@@ -17,7 +17,7 @@ router.use(authenticate);
 router.get('/', checkRoles(ROLES.ADMIN), ctrlWrapper(getContactsController));
 
   router.get('/:contactId', checkRoles(ROLES.USER, ROLES.ADMIN), ctrlWrapper(getContactByIdController));
- router.post('', checkRoles( ROLES.ADMIN), validateBody(createContactSchema), ctrlWrapper(createContactController));
+ router.post('/', checkRoles( ROLES.ADMIN), validateBody(createContactSchema), ctrlWrapper(createContactController));
  router.patch('/:contactId', checkRoles(ROLES.USER, ROLES.ADMIN), validateBody(updateContactSchema), ctrlWrapper(patchContactController));
  router.delete('/:contactId', checkRoles( ROLES.ADMIN), ctrlWrapper(deleteContactController));
 
