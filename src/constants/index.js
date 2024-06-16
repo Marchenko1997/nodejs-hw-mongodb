@@ -10,7 +10,3 @@ export const SORT_ORDER = {
   export const THIRTY_DAYS = 30 * ONE_DAY;
 
 
-  export const ROLES = {
-    ADMIN: 'admin',
-    USER: 'user',
-  };
