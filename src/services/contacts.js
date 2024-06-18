@@ -2,11 +2,11 @@ import { Contacts } from '../models/contacts.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 import {SORT_ORDER} from "../constants/index.js";
 
-export const getAllContacts = async ({ page = 1, perPage = 10, sortOrder = SORT_ORDER.ASC, sortBy = 'id', filter = {} }) => {
+export const getAllContacts = async ({ page = 1, perPage = 10, sortOrder = SORT_ORDER.ASC, sortBy = 'id', filter = {}, userId }) => {
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
-  const contactsQuery = Contacts.find();
+  const contactsQuery = Contacts.find({ userId });
 
   if (filter.isFavourite !== undefined) {
     contactsQuery.where('isFavourite').equals(filter.isFavourite);
@@ -35,8 +35,8 @@ export const getAllContacts = async ({ page = 1, perPage = 10, sortOrder = SORT_
 };
 
 
-export const getContactById = async (contactId) => {
-  return await Contacts.findById(contactId);
+export const getContactById = async (contactId, userId) => {
+  return await Contacts.findById({ _id: contactId, userId });
 };
 
 export const createContact = async(payload) => {
@@ -44,9 +44,9 @@ export const createContact = async(payload) => {
   return contact;
 };
 
-export const updateContact = async (contactId, payload, options = {}) => {
+export const updateContact = async (contactId, payload, options = {}, userId) => {
   const contact = await Contacts.findByIdAndUpdate(
-    contactId,
+    { _id: contactId, userId },
     payload,
     {
       new: true,
@@ -57,7 +57,7 @@ export const updateContact = async (contactId, payload, options = {}) => {
   return contact;
 };
 
-export const deleteContact = async(contactId) => {
-  const contact = await Contacts.findByIdAndDelete(contactId);
+export const deleteContact = async(contactId, userId) => {
+  const contact = await Contacts.findByIdAndDelete({ _id: contactId, userId });
   return contact;
 };

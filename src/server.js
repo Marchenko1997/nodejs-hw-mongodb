@@ -4,9 +4,10 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { env } from './utils/env.js';
 
-import router from './routers/contacts.js';
+import router from './routers/index.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
+import cookieParser from 'cookie-parser';
 
 
 
@@ -29,7 +30,11 @@ app.use(express.json());
     }),
   );
 
+  app.use(cookieParser());
+
   app.use(router);
+
+
 
 
   app.use(errorHandler);
