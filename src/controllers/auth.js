@@ -92,11 +92,19 @@ export const logoutUserController = async (req, res, next) => {
   }
 };
 
-export const requestResetEmailController = async (req, res) => {
-  await requestResetToken(req.body.email);
-  res.json({
-    message: 'Reset password email was successfully sent!',
-    status: 200,
-    data: {},
-  });
-};
+export const requestResetEmailController = async (req, res, next) => {
+    try {
+      await requestResetToken(req.body.email);
+      res.json({
+        status: 200,
+        message: 'Reset password email has been successfully sent.',
+        data: {},
+      });
+    } catch (error) {
+      if (error.message === 'User not found') {
+        next(createHttpError(404, 'User not found'));
+      } else {
+        next(createHttpError(500, 'Failed to send the email, please try again later.'));
+      }
+    }
+  };
