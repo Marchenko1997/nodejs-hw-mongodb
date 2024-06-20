@@ -1,7 +1,7 @@
 // src/controllers/auth.js
 
 import { registerUser } from '../services/auth.js';
-import { loginUser, logoutUser } from '../services/auth.js';
+import { loginUser, logoutUser,resetPassword } from '../services/auth.js';
 import { THIRTY_DAYS } from '../constants/index.js';
 import { refreshUsersSession, requestResetToken } from '../services/auth.js';
 import createHttpError from 'http-errors';
@@ -105,6 +105,22 @@ export const requestResetEmailController = async (req, res, next) => {
         next(createHttpError(404, 'User not found'));
       } else {
         next(createHttpError(500, 'Failed to send the email, please try again later.'));
+      }
+    }
+  };
+  export const resetPasswordController = async (req, res, next) => {
+    try {
+      await resetPassword(req.body);
+      res.json({
+        message: 'Password was successfully reset!',
+        status: 200,
+        data: {},
+      });
+    } catch (error) {
+      if (error.message === 'Token is expired or invalid.') {
+        next(createHttpError(401, 'Token is expired or invalid.'));
+      } else {
+        next(error);
       }
     }
   };
