@@ -13,7 +13,7 @@ router.post('/register', validateBody(registerUserSchema), ctrlWrapper(registerU
 router.post('/login', validateBody(loginUserSchema), ctrlWrapper(loginUserController));
 router.post('/refresh', authenticate, ctrlWrapper(refreshUserSessionController));
 router.post('/logout', authenticate, ctrlWrapper(logoutUserController));
-router.post('/request-reset', validateBody(requestResetEmailSchema), ctrlWrapper(requestResetEmailController));
+router.post('/send-reset-email', validateBody(requestResetEmailSchema), ctrlWrapper(requestResetEmailController));
 
 
 export const authRouter = router;
