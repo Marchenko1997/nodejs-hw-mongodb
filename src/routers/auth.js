@@ -14,7 +14,7 @@ router.post('/login', validateBody(loginUserSchema), ctrlWrapper(loginUserContro
 router.post('/refresh', authenticate, ctrlWrapper(refreshUserSessionController));
 router.post('/logout', authenticate, ctrlWrapper(logoutUserController));
 router.post('/send-reset-email', validateBody(requestResetEmailSchema), ctrlWrapper(requestResetEmailController));
-router.post('/auth/reset-pwd', validateBody(resetPasswordSchema), ctrlWrapper(resetPasswordController));
+router.post('/reset-pwd', validateBody(resetPasswordSchema), ctrlWrapper(resetPasswordController));
 
 
 export const authRouter = router;
