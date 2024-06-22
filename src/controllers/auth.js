@@ -92,53 +92,39 @@ export const logoutUserController = async (req, res, next) => {
   }
 };
 
-// export const requestResetEmailController = async (req, res, next) => {
-//     try {
-//       await requestResetToken(req.body.email);
-//       res.json({
-//         status: 200,
-//         message: 'Reset password email has been successfully sent.',
-//         data: {},
-//       });
-//     } catch (error) {
-//       if (error.message === 'User not found') {
-//         next(createHttpError(404, 'User not found'));
-//       } else {
-//         next(createHttpError(500, 'Failed to send the email, please try again later.'));
-//       }
-//     }
-//   };
-
-export const requestResetEmailController = async (req, res) => {
-  await requestResetToken(req.body.email);
-  res.json({
-    message: 'Reset password email has been successfully sent.',
-    status: 200,
-    data: {},
-  });
-};
-
-  // export const resetPasswordController = async (req, res, next) => {
-  //   try {
-  //     await resetPassword(req.body);
-  //     res.json({
-  //       message: 'Password was successfully reset!',
-  //       status: 200,
-  //       data: {},
-  //     });
-  //   } catch (error) {
-  //     if (error.message === 'Token is expired or invalid.') {
-  //       next(createHttpError(401, 'Token is expired or invalid.'));
-  //     } else {
-  //       next(error);
-  //     }
-  //   }
-  // };
-  export const resetPasswordController = async (req, res) => {
-    await resetPassword(req.body);
-    res.json({
-      message: 'Password has been successfully reset.',
-      status: 200,
-      data: {},
-    });
+export const requestResetEmailController = async (req, res, next) => {
+    try {
+      await requestResetToken(req.body.email);
+      res.json({
+        status: 200,
+        message: 'Reset password email has been successfully sent.',
+        data: {},
+      });
+    } catch (error) {
+      if (error.message === 'User not found') {
+        next(createHttpError(404, 'User not found'));
+      } else {
+        next(createHttpError(500, 'Failed to send the email, please try again later.'));
+      }
+    }
   };
+
+
+
+  export const resetPasswordController = async (req, res, next) => {
+    try {
+      await resetPassword(req.body);
+      res.json({
+        message: 'Password was successfully reset!',
+        status: 200,
+        data: {},
+      });
+    } catch (error) {
+      if (error.message === 'Token is expired or invalid.') {
+        next(createHttpError(401, 'Token is expired or invalid.'));
+      } else {
+        next(error);
+      }
+    }
+  };
+
