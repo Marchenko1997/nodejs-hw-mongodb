@@ -1,5 +1,4 @@
 #/swagger/paths/auth/register.yaml
-
 tags:
   - Auth
 summary: Register a new user
