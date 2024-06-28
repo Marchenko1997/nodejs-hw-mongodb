@@ -1,0 +1,30 @@
+# swagger/components/schemas/user.yaml
+
+type: object
+required:
+  - _id
+  - name
+  - email
+properties:
+  _id:
+    description: "User's id"
+    type: string
+    example: 60d21b4667d0d8992e610c85
+  name:
+    description: "User's name"
+    type: string
+    example: 'John Doe'
+  email:
+    description: "User's email"
+    type: string
+    example: 'john.doe@example.com'
+  createdAt:
+    description: "Creation timestamp"
+    type: string
+    format: date-time
+    example: '2021-06-24T14:42:23.382Z'
+  updatedAt:
+    description: "Last update timestamp"
+    type: string
+    format: date-time
+    example: '2021-06-24T14:42:23.382Z'
