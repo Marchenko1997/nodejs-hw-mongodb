@@ -11,10 +11,12 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000"
-    },
+      "url": "https://nodejs-hw-mongodb-1oe2.onrender.com"
+    }
+  ],
+  "security": [
     {
-      "url": "https://nodejs-hw-mongodb-1oe2.onrender.com/"
+      "bearerAuth": []
     }
   ],
   "tags": [
@@ -361,7 +363,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "contactId",
+            "name": "id",
             "required": true,
             "schema": {
               "type": "string"
@@ -476,7 +478,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "contactId",
+            "name": "id",
             "required": true,
             "schema": {
               "type": "string"
@@ -868,6 +870,82 @@
         "scheme": "bearer"
       }
     },
+    "responses": {
+      "400": {
+        "description": "Bad Request error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "BadRequestError"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid input data"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Not Found error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "example": "NotFoundError"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Contact not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "schemas": {
       "contact": {
         "type": "object",
@@ -960,82 +1038,6 @@
             "type": "string",
             "format": "date-time",
             "example": "2021-06-24T14:42:23.382Z"
-          }
-        }
-      }
-    },
-    "responses": {
-      "400": {
-        "description": "Bad Request error",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "required": [
-                "status",
-                "message",
-                "data"
-              ],
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 400
-                },
-                "message": {
-                  "type": "string",
-                  "example": "BadRequestError"
-                },
-                "data": {
-                  "type": "object",
-                  "required": [
-                    "message"
-                  ],
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Invalid input data"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "404": {
-        "description": "Not Found error",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "required": [
-                "status",
-                "message",
-                "data"
-              ],
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 404
-                },
-                "message": {
-                  "type": "string",
-                  "example": "NotFoundError"
-                },
-                "data": {
-                  "type": "object",
-                  "required": [
-                    "message"
-                  ],
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Contact not found"
-                    }
-                  }
-                }
-              }
-            }
           }
         }
       }
